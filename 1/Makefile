@@ -10,7 +10,7 @@ PUBLIC_KEY 				= public_key.pem
 
 first:
 	@echo "1.1 Generating key, based on $(FILE), password: $(PASSWORD)"
-	openssl genrsa \
+	@openssl genrsa \
 	-out $(PRIVATE_KEY) \
 	-des3 \
 	-rand $(FILE) \
@@ -18,7 +18,7 @@ first:
 	4096
 
 	@echo "Generating public key, based on secret key"
-	openssl rsa \
+	@openssl rsa \
 	-in $(PRIVATE_KEY) \
 	-out $(PUBLIC_KEY) \
 	-pubout \
@@ -34,13 +34,13 @@ ENCRYPTED_FILE_RSA		= encrypted_file_rsa.txt
 
 second:
 	@echo "1.2 Ecrypting file $(FILE_TO_ENCRYPT_DES3) to $(ENCRYPTED_FILE_DES3)"
-	openssl des3 \
+	@openssl des3 \
 	-in $(FILE_TO_ENCRYPT_DES3) \
 	-out $(ENCRYPTED_FILE_DES3) \
 	-pass pass:$(PASSWORD)
 
 	@echo "Encrypting file $(FILE_TO_ENCRYPT_RSA) to $(ENCRYPTED_FILE_RSA)"
-	openssl rsautl \
+	@openssl rsautl \
 	-in $(FILE_TO_ENCRYPT_RSA) \
 	-out $(ENCRYPTED_FILE_RSA) \
 	-inkey $(PUBLIC_KEY) \
@@ -53,13 +53,13 @@ DECRYPTED_FILE_RSA		= decrypted_file_rsa.txt
 
 third:
 	@echo "1.3 Decrypting file $(ENCRYPTED_FILE_DES3) to $(DECRYPTED_FILE_DES3)"
-	openssl des3 -d \
+	@openssl des3 -d \
 	-in $(ENCRYPTED_FILE_DES3) \
 	-out $(DECRYPTED_FILE_DES3) \
 	-pass pass:$(PASSWORD)
 
 	@echo "Decrypting file $(ENCRYPTED_FILE_RSA) to $(DECRYPTED_FILE_RSA)"
-	openssl rsautl \
+	@openssl rsautl \
 	-in $(ENCRYPTED_FILE_RSA) \
 	-out $(DECRYPTED_FILE_RSA) \
 	-inkey $(PRIVATE_KEY) \
