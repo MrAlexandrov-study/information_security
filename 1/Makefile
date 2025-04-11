@@ -9,6 +9,7 @@ PASSWORD 				= my_password
 PUBLIC_KEY 				= public_key.pem
 
 first:
+	@echo "---------------------------------------------------------------------"
 	@echo "1.1 Generating key, based on $(FILE), password: $(PASSWORD)"
 	@openssl genrsa \
 	-out $(PRIVATE_KEY) \
@@ -33,6 +34,7 @@ FILE_TO_ENCRYPT_RSA		= file_to_encrypt_rsa.txt
 ENCRYPTED_FILE_RSA		= encrypted_file_rsa.txt
 
 second:
+	@echo "---------------------------------------------------------------------"
 	@echo "1.2 Ecrypting file $(FILE_TO_ENCRYPT_DES3) to $(ENCRYPTED_FILE_DES3)"
 	@openssl des3 \
 	-in $(FILE_TO_ENCRYPT_DES3) \
@@ -52,6 +54,7 @@ DECRYPTED_FILE_DES3		= decrypted_file_des3.txt
 DECRYPTED_FILE_RSA		= decrypted_file_rsa.txt
 
 third:
+	@echo "---------------------------------------------------------------------"
 	@echo "1.3 Decrypting file $(ENCRYPTED_FILE_DES3) to $(DECRYPTED_FILE_DES3)"
 	@openssl des3 -d \
 	-in $(ENCRYPTED_FILE_DES3) \

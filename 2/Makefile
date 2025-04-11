@@ -10,6 +10,7 @@ HASH_FILE				= hash_file.txt
 SIGNATURE				= file_to_sign.sig
 
 first:
+	@echo "---------------------------------------------------------------------"
 	@echo "2. Signing file"
 
 	@echo "Generating private key"
