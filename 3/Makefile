@@ -1,5 +1,5 @@
 all: first
-	@echo "Third task is complete"
+	@echo "Third task is complete!"
 
 FILE_TO_COUNT_HASH		= file_to_count_hash.txt
 

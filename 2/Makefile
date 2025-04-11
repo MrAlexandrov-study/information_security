@@ -1,5 +1,5 @@
 all: first
-	@echo "Second task is complete"
+	@echo "Second task is complete!"
 
 FILE 					= file.txt
 PASSWORD 				= my_password
@@ -10,9 +10,10 @@ HASH_FILE				= hash_file.txt
 SIGNATURE				= file_to_sign.sig
 
 first:
-	@echo "---------------------------------------------------------------------"
+	@echo "--------------------------------------------------------------------"
 	@echo "2. Signing file"
 
+	@echo "...................................................................."
 	@echo "Generating private key"
 	@openssl genrsa \
 	-out $(PRIVATE_KEY) \
@@ -21,6 +22,7 @@ first:
 	-passout pass:$(PASSWORD) \
 	4096
 
+	@echo "...................................................................."
 	@echo "Generating public key"
 	@openssl rsa \
 	-in $(PRIVATE_KEY) \
@@ -28,12 +30,14 @@ first:
 	-pubout \
 	-passin pass:$(PASSWORD)
 
+	@echo "...................................................................."
 	@echo "Counting hash"
 	@openssl dgst \
 	-sha256 \
 	-out $(HASH_FILE) \
 	$(FILE_TO_SIGN)
 
+	@echo "...................................................................."
 	@echo "Creating signature"
 	@openssl dgst \
 	-sha256 \
@@ -42,6 +46,7 @@ first:
 	-passin pass:$(PASSWORD) \
 	$(FILE_TO_SIGN)
 
+	@echo "...................................................................."
 	@echo "Verifying signature"
 	@openssl dgst \
 	-sha256 \
