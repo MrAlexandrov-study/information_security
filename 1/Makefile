@@ -10,10 +10,19 @@ PUBLIC_KEY 				= public_key.pem
 
 first:
 	@echo "1.1 Generating key, based on $(FILE), password: $(PASSWORD)"
-	openssl genrsa -out $(PRIVATE_KEY) -des3 -rand $(FILE) -passout pass:$(PASSWORD) 4096
+	openssl genrsa \
+	-out $(PRIVATE_KEY) \
+	-des3 \
+	-rand $(FILE) \
+	-passout pass:$(PASSWORD) \
+	4096
 
 	@echo "Generating public key, based on secret key"
-	openssl rsa -in $(PRIVATE_KEY) -out $(PUBLIC_KEY) -pubout -passin pass:$(PASSWORD)
+	openssl rsa \
+	-in $(PRIVATE_KEY) \
+	-out $(PUBLIC_KEY) \
+	-pubout \
+	-passin pass:$(PASSWORD)
 
 # ------------------------------------------------------------------------------
 
