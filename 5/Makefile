@@ -20,25 +20,14 @@ run: build
 	@echo "==> Running ${PROJECT_NAME}"
 	@${BUILD_DIR}/${PROJECT_NAME} < ${INPUT_FILE} > ${OUTPUT_FILE}
 
-clang-tidy: build
-	@echo "==> Running clang-tidy with $(NPROCS) threads..."
-	find include tests -type f \( -name '*.cpp' -o -name '*.hpp' \) -print -o -name 'main.cpp' -print \
-	| xargs -P$(NPROCS) -n1 clang-tidy --p=build \
-	  --extra-arg=-std=c++20
-
 clean:
 	@echo "==> Cleaning up..."
 	@rm -rf $(BUILD_DIR)
-	@rm -rf coverage project_template.profdata
 
 rebuild: clean build
 
 install:
 	sudo apt-get update
-	sudo apt-get install -y cmake clang libgtest-dev ninja-build clang-tidy libssl-dev
+	sudo apt-get install -y cmake clang ninja-build libssl-dev
 
-coverage: test
-	@llvm-profdata merge -sparse $(BUILD_DIR)/tests/default.profraw -o project_template.profdata
-	@llvm-cov show $(BUILD_DIR)/tests/test_project_template -instr-profile=project_template.profdata -format=html -show-branches=count -output-dir=coverage
-
-.PHONY: all build test clean rebuild install
+.PHONY: all build clean rebuild install
