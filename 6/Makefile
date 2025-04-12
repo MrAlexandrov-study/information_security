@@ -10,6 +10,7 @@ BUILD_DIR = build
 all: run
 
 build:
+	@echo "--------------------------------------------------------------------"
 	@echo "==> Configuring the project_template..."
 	@cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -B$(BUILD_DIR) -H.
 	@echo "==> Building the project_template..."
