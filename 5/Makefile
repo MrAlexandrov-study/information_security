@@ -18,7 +18,7 @@ build:
 
 run: build
 	@echo "==> Running ${PROJECT_NAME}"
-	@${BUILD_DIR}/${PROJECT_NAME} < ${INPUT_FILE} > ${OUTPUT_FILE}
+	@${BUILD_DIR}/${PROJECT_NAME} > ${OUTPUT_FILE}
 
 clean:
 	@echo "==> Cleaning up..."
