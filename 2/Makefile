@@ -8,6 +8,8 @@ PUBLIC_KEY 				= public_key.pem
 FILE_TO_SIGN			= file_to_sign.txt
 HASH_FILE				= hash_file.txt
 SIGNATURE				= file_to_sign.sig
+SERTIFICATE				= sertificate.csr
+SELF_SIGNED_CERT		= self_signed_cert.csr
 
 first:
 	@echo "--------------------------------------------------------------------"
@@ -55,5 +57,24 @@ first:
 	-passin pass:$(PASSWORD) \
 	$(FILE_TO_SIGN)
 
+	@echo "...................................................................."
+	@echo "Generating CSR"
+	@openssl req \
+	-new \
+	-key $(PRIVATE_KEY) \
+	-out $(SERTIFICATE) \
+	-passin pass:$(PASSWORD) \
+	-subj "/C=RU/ST=MO/L=Moscow/O=BMSTU/OU=RK6/CN=Certificate"
+
+	@echo "...................................................................."
+	@echo "Generating self-signed certificate"
+	@openssl x509 \
+	-req \
+	-in $(SERTIFICATE) \
+	-signkey $(PRIVATE_KEY) \
+	-out $(SELF_SIGNED_CERT) \
+	-days 1 \
+	-passin pass:$(PASSWORD)
+
 clean:
-	@rm -rf $(PRIVATE_KEY) $(PUBLIC_KEY) $(HASH_FILE) $(SIGNATURE)
+	@rm -rf $(PRIVATE_KEY) $(PUBLIC_KEY) $(HASH_FILE) $(SIGNATURE) $(SERTIFICATE) $(SELF_SIGNED_CERT)
