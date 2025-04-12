@@ -7,7 +7,7 @@ NPROCS ?= $(shell nproc)
 
 BUILD_DIR = build
 
-all: build test run
+all: run
 
 build:
 	@echo "==> Configuring the project_template..."

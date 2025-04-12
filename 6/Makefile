@@ -7,17 +7,13 @@ NPROCS ?= $(shell nproc)
 
 BUILD_DIR = build
 
-all: build test run
+all: run
 
 build:
 	@echo "==> Configuring the project_template..."
 	@cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -B$(BUILD_DIR) -H.
 	@echo "==> Building the project_template..."
 	@cmake --build $(BUILD_DIR) -j $(NPROCS)
-
-test: build
-	@echo "==> Running tests..."
-	@cd $(BUILD_DIR) && ctest --verbose --parallel $(NPROCS)
 
 run: build
 	@echo "==> Running ${PROJECT_NAME}"
